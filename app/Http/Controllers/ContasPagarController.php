@@ -65,10 +65,15 @@ class ContasPagarController extends Controller
             [
                 'descricao' => 'required|min:6',
                 'valor' => 'required|numeric'
+            ],
+            [
+                'required' => ':attribute é obrigatório.',
+                'numeric' => ':attribute precisa ser numérico.',
+                'min' => ':attribute precisa ter pelo menos 6 caracteres.'
             ]
             );
             if ($validator->fails()){
-                return redirect()->action('ContasPagarController@cadastro')->withErrors($validator);
+                return redirect()->action('ContasPagarController@cadastro')->withErrors($validator)->withInput();
             }
 
         /*DB::insert('INSERT INTO contas_pagar (descricao, valor) VALUES (?, ?)',
